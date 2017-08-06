@@ -1,2 +1,4 @@
 .relative { position: relative; }
 .absolute { position: absolute; }
+
+.hide-if-empty:empty { display: none; }

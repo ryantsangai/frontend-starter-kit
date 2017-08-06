@@ -22,7 +22,7 @@
         h1.title Holy Grail Layout
         p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit veritatis sequi dicta nam. Distinctio nam temporibus, fugit voluptatum. Quod repellat cumque, modi alias quis quidem, molestias eaque deleniti. Rem, perspiciatis.
 
-  footer.footer
+  footer.footer.hide-if-empty
     slot(name="footer")
 </template>
 
@@ -38,7 +38,7 @@ export default {
     toggleMenu() { this.mobileMenuOpen = !this.mobileMenuOpen },
   },
   computed: {
-    windowWidth() { return this.$store.state.window.width },
+    windowWidth() { return this.$store.state.browser.width },
     showMenu() { return this.windowWidth > 769 || this.mobileMenuOpen },
     menus() { return this.$router.options.routes },
   },
@@ -47,10 +47,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-footer:empty {
-  display: none;
-}
-
 .layout-content {
   > .is-overlay {
     background-color: rgba(#000, 0.1);

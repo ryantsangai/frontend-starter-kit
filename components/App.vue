@@ -11,6 +11,9 @@ export default {
   },
   methods: { },
   computed: { },
+  created() {
+    this.$store.dispatch('browser/bindResize')
+  },
   components: { },
 }
 </script>
