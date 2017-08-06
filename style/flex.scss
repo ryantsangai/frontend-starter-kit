@@ -1,0 +1,43 @@
+// Parent
+[flex] { display: flex; }
+
+[flex~="column"] { flex-direction: column; }
+[flex~="row"] { flex-direction: row; }
+
+[flex~="nowrap"] { flex-wrap: nowrap; }
+[flex~="wrap"] { flex-wrap: wrap; }
+
+[flex~="align-center"] { align-items: center; }
+[flex~="align-stretch"] { align-items: stretch; }
+[flex~="align-start"] { align-items: flex-start; }
+[flex~="align-end"] { align-items: flex-end; }
+[flex~="align-baseline"] { align-items: baseline; }
+
+[flex~="justify-center"] { justify-content: center; }
+[flex~="justify-start"] { justify-content: flex-start; }
+[flex~="justify-end"] { justify-content: flex-end; }
+[flex~="justify-between"] { justify-content: space-between; }
+[flex~="justify-around"] { justify-content: space-around; }
+
+[flex~="content-stretch"] { align-content: stretch; }
+[flex~="content-start"] { align-content: flex-start; }
+[flex~="content-end"] { align-content: flex-end; }
+[flex~="content-center"] { align-content: center; }
+[flex~="content-between"] { align-content: space-between; }
+[flex~="content-around"] { align-content: space-around; }
+
+// Child
+@for $i from 0 through 9 {
+  [flex-item~="grow-#{$i}"] { flex-grow: $i; }
+  [flex-item~="shrink-#{$i}"] { flex-shrink: $i; }
+  [flex-item~="basis-#{$i}"] { flex-basis: $i; }
+  [flex-item~="order-#{$i}"] { order: $i; }
+}
+
+[flex-item~="basis-auto"] { flex-basis: auto; }
+
+[flex-item~="align-center"] { align-self: center; }
+[flex-item~="align-stretch"] { align-self: stretch; }
+[flex-item~="align-start"] { align-self: flex-start; }
+[flex-item~="align-end"] { align-self: flex-end; }
+[flex-item~="align-baseline"] { align-self: baseline; }

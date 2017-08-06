@@ -10,6 +10,10 @@ let routes = [
     name: 'Index',
     component: view('index'),
   }, {
+    path: '/list',
+    name: 'Listing',
+    component: view('listing'),
+  }, {
     path: '*',
     redirect: '/',
   }
