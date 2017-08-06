@@ -49,10 +49,12 @@ export default {
 <style lang="scss" scoped>
 .layout-content {
   > .is-overlay {
+    z-index: 10;
     background-color: rgba(#000, 0.1);
   }
 }
 .content-side {
+  z-index: 15;
   min-width: 300px;
   box-shadow: 1px 0 2px rgba(#000, 0.1);
   background-color: $background;
