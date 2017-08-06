@@ -1,6 +1,8 @@
 <template lang="pug">
-#index-page
-  h1 HiHi
+#index-page.hero.is-fullheight
+  .hero-body
+    .container.has-text-centered
+      h1.title HiHi
 </template>
 
 <script>
@@ -17,6 +19,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @import "global";
+@import "~style/global";
+
+@media (max-width: $tablet) {
+  h1 {
+    color: $red;
+  }
+}
+
 
 </style>

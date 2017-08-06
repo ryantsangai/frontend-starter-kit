@@ -58,16 +58,14 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: process.env.NODE_ENV,
+      }
+    }),
     new ExtractTextPlugin("css/main.css"),
     new webpack.ProvidePlugin({
       // '_': "lodash",
-    }),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        sassLoader: {
-          includePaths: [ './style', ],
-        },
-      },
     }),
     new HtmlWebpackPlugin({
       template: './index.pug',
@@ -78,6 +76,7 @@ module.exports = {
 
   resolve: {
     alias: {
+      style: path.resolve('style'),
     }
   },
 
@@ -86,11 +85,6 @@ module.exports = {
   devServer: {
     contentBase: __dirname + "/dist",
     port: 9000,
-    historyApiFallback: {
-      rewrites: [
-        { from: /./, to: '/index.html' }
-      ],
-    }
   },
 }
 
@@ -98,15 +92,10 @@ module.exports = {
 if (process.env.NODE_ENV === 'production') {
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     warnings: false
-    //   }
-    // })
+    new webpack.optimize.UglifyJsPlugin({
+      // compress: {
+      //   warnings: false
+      // }
+    })
   ])
 }
