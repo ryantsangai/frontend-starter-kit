@@ -2,7 +2,8 @@
 #index-page.hero.is-fullheight
   .hero-body
     .container.has-text-centered
-      h1.title HiHi
+      h1.title Welcome to Index page
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit repellendus optio asperiores accusamus impedit deserunt rem, iste, id, non consectetur quibusdam eius veniam hic porro tempore, recusandae architecto. Modi, labore?
 </template>
 
 <script>
@@ -19,13 +20,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~style/global";
 
-@media (max-width: $tablet) {
-  h1 {
-    color: $red;
-  }
+
+h1 {
+  color: $red;
 }
-
 
 </style>

@@ -19,7 +19,16 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
-            scss: 'vue-style-loader!css-loader!sass-loader',
+            scss: [
+              { loader: 'vue-style-loader', },
+              { loader: 'css-loader', },
+              { loader: 'sass-loader', },
+              {
+                loader: 'sass-resources-loader',
+                options: { resources: path.resolve('style/global.scss') },
+              }
+            ],
+            // for loading Bulma sass files
             sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
           },
         }
@@ -65,7 +74,7 @@ module.exports = {
     }),
     new ExtractTextPlugin("css/main.css"),
     new webpack.ProvidePlugin({
-      // '_': "lodash",
+      '_': "lodash/core",
     }),
     new HtmlWebpackPlugin({
       template: './index.pug',
@@ -76,7 +85,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      style: path.resolve('style'),
+      Comp: path.resolve('components'),
     }
   },
 
