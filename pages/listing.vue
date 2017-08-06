@@ -2,6 +2,7 @@
 layout#listing-page
   h1.title Listing page
   button.button(type="button", @click.prevent="$refs.modal.open()") Open
+  button.button(type="button", @click.prevent="message()") Message
   modal(ref="modal")
     p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque odit facere vero soluta quas officiis nulla sequi dignissimos temporibus, magnam numquam esse, amet consectetur. Autem officiis nostrum, hic sunt nemo?
 </template>
@@ -15,7 +16,14 @@ export default {
     return {
     }
   },
-  methods: { },
+  methods: {
+    message() {
+      this.$store.dispatch('toast', {
+        text: 'Hi, Toast Message',
+        action: { text: 'OK', }
+      })
+    }
+  },
   computed: { },
   components: {
     Layout: HolyGrailLayout,

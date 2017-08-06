@@ -1,8 +1,11 @@
 <template lang="pug">
-router-view
+.app
+  router-view
+  toast
 </template>
 
 <script>
+import Toast from './singleton/toast.vue'
 
 export default {
   data() {
@@ -14,6 +17,8 @@ export default {
   created() {
     this.$store.dispatch('browser/bindResize')
   },
-  components: { },
+  components: {
+    Toast,
+  },
 }
 </script>

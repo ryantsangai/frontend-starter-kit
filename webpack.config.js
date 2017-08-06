@@ -74,7 +74,7 @@ module.exports = {
     }),
     new ExtractTextPlugin("css/main.css"),
     new webpack.ProvidePlugin({
-      '_': "lodash/core",
+      // '_': "lodash/core",
     }),
     new HtmlWebpackPlugin({
       template: './index.pug',
