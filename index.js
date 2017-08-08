@@ -8,12 +8,14 @@ import filters from './config/filters'
 import directives from './config/directives'
 import App from './components/App.vue'
 
-_.each(
+import each from 'lodash/each'
+
+each(
   filters,
   (filterFn, filterName) => Vue.filter(filterName, filterFn)
 )
 
-_.each(
+each(
   directives,
   (directiveFn, directiveName) => Vue.directive(directiveName, directiveFn)
 )

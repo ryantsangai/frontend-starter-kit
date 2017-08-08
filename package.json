@@ -4,8 +4,8 @@
   "description": "Scaffold Vue.js with webpack",
   "main": "index.js",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/ryantsangai/vue-webpack.git"
+    "type": "git",
+    "url": "https://github.com/ryantsangai/vue-webpack.git"
   },
   "scripts": {
     "dev": "./node_modules/.bin/webpack --progress && ./node_modules/.bin/webpack-dev-server --watch",
