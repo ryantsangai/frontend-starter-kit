@@ -21,7 +21,6 @@ const store = new Vuex.Store({
     },
     REMOVE_TOAST(state, payload) {
       let index = findIndex(state.toasts, toast => toast.id == payload)
-      console.log(index);
       if (index === -1) return
       state.toasts.splice(index, 1)
     },

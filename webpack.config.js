@@ -85,7 +85,8 @@ module.exports = {
 
   resolve: {
     alias: {
-      Comp: path.resolve('components'),
+      '@cpn': path.resolve('components'),
+      '@config': path.resolve('config'),
     }
   },
 

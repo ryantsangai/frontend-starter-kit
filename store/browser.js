@@ -7,6 +7,8 @@ let state = {
 
 
 const getters = {
+  width(state) { return state.width },
+  height(state) { return state.height },
 }
 
 const mutations = {
