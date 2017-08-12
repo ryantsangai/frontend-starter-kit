@@ -22,7 +22,7 @@ each(
 
 require('./style/index.scss')
 
-let vue = new Vue({
+let app = new Vue({
   el: '#app',
   router: router,
   store: store,
