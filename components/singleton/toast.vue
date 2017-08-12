@@ -89,3 +89,35 @@ button {
   text-decoration: none;
 }
 </style>
+
+
+<story>
+  {
+    template: `<div class="section">
+      <ul>
+        <li>Still WIP</li>
+      </ul>
+      <form @submit.prevent="message()">
+        <div class="field has-addons">
+          <div class="control">
+            <input type="text" class="input" v-model="msg">
+          </div>
+          <div class="control">
+            <button class="button" type="submit">Notify</button>
+          </div>
+        </div>
+      </form>
+      <toast></toast>
+    </div>`,
+    data() {
+      return {
+        msg: 'Hi Auntie'
+      }
+    },
+    methods: {
+      message() {
+        this.$store.dispatch('toast', this.msg)
+      }
+    },
+  }
+</story>

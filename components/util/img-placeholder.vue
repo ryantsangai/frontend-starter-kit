@@ -116,3 +116,29 @@ img {
   min-width: 100%;
 }
 </style>
+
+
+<story>
+{
+  template: `
+  <div class="container">
+    <ul>
+      <li>Fade in effect when image is loaded</li>
+      <li>Placeholder will occupy the space even the img is not loaded</li>
+      <li>Use <code>img</code> to make background-image cover effect</li>
+    </ul>
+    <hr>
+    <div class="columns">
+      <div v-for="i in 4" class="column">
+        <img-placeholder src="http://lorempixel.com/100/200/" :size="{width: 1, height: 1}"></img-placeholder>
+      </div>
+    </div>
+    <div class="columns">
+      <div v-for="i in 2" class="column">
+        <img-placeholder src="http://lorempixel.com/100/200/" :size="{width: 2, height: 1}"></img-placeholder>
+      </div>
+    </div>
+  </div>
+  `,
+}
+</story>

@@ -8,6 +8,7 @@ import { linkTo } from '@storybook/addon-links';
 import Vue from 'vue'
 import store from './../store'
 import './../style/index.scss';
+import _ from 'lodash'
 
 require('./../config/http')
 
@@ -15,8 +16,22 @@ import filters from './../config/filters'
 import directives from './../config/directives'
 
 import each from 'lodash/each'
+
 // components
-import Modal from './util/modal.vue'
+const files = require.context('./', true, /\.vue$/)
+const filePaths = files.keys()
+const skipped = ['App'] // format 'util/modal'
+
+let components = filePaths.reduce(function(result, filePath) {
+  let path = filePath.replace(/(\.\/|\.vue)/g, '')
+  let paths = path.split('/')
+
+  if (skipped.indexOf(path) === -1 && files(filePath).$story) {
+    _.set(result, paths, files(filePath))
+  }
+
+  return result
+}, {})
 
 each(
   filters,
@@ -28,34 +43,28 @@ each(
   (directiveFn, directiveName) => Vue.directive(directiveName, directiveFn)
 )
 
-storiesOf('Modal', module).add('Normal', () => ({
-  template: `<div>
-    <button class="button" type="button" @click="open()">Open</button>
-    <modal ref="modal">
-      <h1 class="title">Modal title</h1>
-      <p>Press <code>ESC</code> to close</p>
-    </modal>
-  </div>`,
-  methods: {
-    // action: linkTo('Button')
-    open() {
-      this.$refs.modal.open()
-    },
-  },
-  components: {
-    Modal,
-  },
+function makeStory(components, parentStory = null) {
+  _.each(components, function(component, name) {
+    var story = parentStory || storiesOf(_.capitalize(name), module)
+    // add vuex to each story component
+    if (component.render) {
+      story.add(_.capitalize(name), () => {
+        // inject its component as dependency
+        component.$story.components = component.$story.components || {}
+        component.$story.components[name] = component
+        // add vuex to each story component
+        component.$story.store = store
+        _.set(component.$story.methods, 'action', function(message) {
+          console.log(message);
+          action(message)
+        })
+        return component.$story
+      })
+    } else {
+      makeStory(component, story)
+    }
+  })
+}
 
-}));
-//
-// storiesOf('Button', module)
-//   .add('with text', () => ({
-//     components: { MyButton },
-//     template: '<my-button @click="action">Hello Button</my-button>',
-//     methods: { action: action('clicked') },
-//   }))
-//   .add('with some emoji', () => ({
-//     components: { MyButton },
-//     template: '<my-button @click="action">😀 😎 👍 💯</my-button>',
-//     methods: { action: action('clicked') },
-//   }));
+makeStory(components)
+
