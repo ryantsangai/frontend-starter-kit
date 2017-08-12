@@ -1,12 +1,17 @@
 <template lang="pug">
-#index-page.hero.is-fullheight
-  .hero-body
-    .container.has-text-centered
-      h1.title Welcome to Index page
-      p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit repellendus optio asperiores accusamus impedit deserunt rem, iste, id, non consectetur quibusdam eius veniam hic porro tempore, recusandae architecto. Modi, labore?
+landing-layout#index-page
+  section.section.hero.is-fullheight
+    .hero-body
+      .container.has-text-centered
+        h1.title Frontend Starter Kit
+
+  .navbar-end(slot="top-menu")
+    a.navbar-item(href="/storybook", target="_blank") Components
+    router-link.navbar-item(to="/layout") Layouts
 </template>
 
 <script>
+import LandingLayout from './layout/landing.vue'
 
 export default {
   data() {
@@ -15,7 +20,9 @@ export default {
   },
   methods: { },
   computed: { },
-  components: { },
+  components: {
+    LandingLayout,
+  },
 }
 </script>
 

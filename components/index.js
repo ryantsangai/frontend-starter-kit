@@ -55,7 +55,6 @@ function makeStory(components, parentStory = null) {
         // add vuex to each story component
         component.$story.store = store
         _.set(component.$story.methods, 'action', function(message) {
-          console.log(message);
           action(message)
         })
         return component.$story

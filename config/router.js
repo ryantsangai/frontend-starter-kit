@@ -10,9 +10,9 @@ let routes = [
     name: 'Index',
     component: view('index'),
   }, {
-    path: '/list',
-    name: 'Listing',
-    component: view('listing'),
+    path: '/layout',
+    name: 'Layout',
+    component: view('layout'),
   }, {
     path: '*',
     redirect: '/',
