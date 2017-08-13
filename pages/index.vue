@@ -6,7 +6,7 @@ landing-layout#index-page
         h1.title Frontend Starter Kit
 
   .navbar-end(slot="top-menu")
-    a.navbar-item(href="/storybook", target="_blank") Components
+    external-link.navbar-item(href="/storybook", target="_blank") Components
     router-link.navbar-item(to="/layout") Layouts
 </template>
 

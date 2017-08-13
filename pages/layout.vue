@@ -18,14 +18,14 @@ component#layout-page(:is="layout")
 
   //- top menu
   .navbar-end(slot="top-menu")
-    a.navbar-item(href="/storybook", target="_blank") Components
+    external-link.navbar-item(href="/storybook", target="_blank") Components
     router-link.navbar-item(to="/layout") Layouts
 
   //- left menu
   nav.menu(slot="left-menu")
     ul.menu-list
       li(v-for="menu in menus")
-        a(:href="menu.url", target="_blank") {{menu.display}}
+        external-link(:href="menu.url", target="_blank") {{menu.display}}
 
   //- footer
   .container(slot="footer")

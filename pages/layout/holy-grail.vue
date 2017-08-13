@@ -5,7 +5,7 @@
       .navbar-burger.burger.is-marginless(@click="toggleMenu")
         span(v-for="i in 3")
       router-link.navbar-item(to="/")
-        i.icon-home
+        i.icon-home Home
     .navbar-menu
       slot(name="top-menu")
 

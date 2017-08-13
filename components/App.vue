@@ -12,6 +12,10 @@ export default {
     return {
     }
   },
+  // meta data that share with all pages
+  metaInfo: {
+    titleTemplate: 'Frontend Starter Kit'
+  },
   methods: { },
   computed: { },
   created() {

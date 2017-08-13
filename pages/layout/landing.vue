@@ -3,7 +3,7 @@
   header.navbar.card
     .container
       router-link.navbar-item(to="/")
-        i.icon-home
+        i.icon-home Home
       .navbar-menu
         slot(name="top-menu")
 
@@ -31,7 +31,3 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-// @import "global";
-
-</style>

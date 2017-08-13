@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import store from './store'
 import router from './config/router'
+import Meta from 'vue-meta'
 
-require('./config/http')
+import './config/component'
+import './config/http'
+
+
+Vue.use(Meta)
 
 import filters from './config/filters'
 import directives from './config/directives'
