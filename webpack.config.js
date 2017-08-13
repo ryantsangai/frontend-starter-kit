@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 module.exports = {
   context: __dirname,
@@ -115,6 +116,12 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+    new FaviconsWebpackPlugin({
+      logo: __dirname + '/assets/favicon.png',
+      prefix: 'favicon/',
+      inject: true,
+      background: '#fff',
     })
   ])
 }
