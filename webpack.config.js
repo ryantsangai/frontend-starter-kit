@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
 
 module.exports = {
   context: __dirname,
@@ -81,7 +82,9 @@ module.exports = {
       template: './index.pug',
       filename: './index.html',
     }),
-
+    new ServiceWorkerWebpackPlugin({
+      entry: path.join(__dirname, 'config/sw.js'),
+    }),
   ],
 
   resolve: {
@@ -122,6 +125,6 @@ if (process.env.NODE_ENV === 'production') {
       prefix: 'favicon/',
       inject: true,
       background: '#fff',
-    })
+    }),
   ])
 }

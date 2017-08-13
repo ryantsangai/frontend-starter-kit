@@ -1,17 +1,14 @@
 import Vue from 'vue'
 import store from './store'
 import router from './config/router'
-import Meta from 'vue-meta'
-
 import './config/component'
 import './config/http'
-
-
-Vue.use(Meta)
-
+import './config/plugin'
 import filters from './config/filters'
 import directives from './config/directives'
 import App from './components/App.vue'
+
+import './style/index.scss'
 
 import each from 'lodash/each'
 
@@ -25,7 +22,6 @@ each(
   (directiveFn, directiveName) => Vue.directive(directiveName, directiveFn)
 )
 
-require('./style/index.scss')
 
 let app = new Vue({
   el: '#app',
