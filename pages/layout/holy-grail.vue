@@ -2,7 +2,7 @@
 .holy-grail-layout.hero.is-fullheight(flex="column align-stretch")
   header.navbar.card
     .navbar-brand
-      .navbar-burger.burger.is-marginless(@click="toggleMenu")
+      .navbar-burger.burger.is-marginless(@click="toggleMenu()")
         span(v-for="i in 3")
       router-link.navbar-item(to="/")
         i.icon-home Home
@@ -31,13 +31,13 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
       mobileMenuOpen: false,
     }
   },
+  name: 'holy-grail-layout',
   methods: {
     toggleMenu() { this.mobileMenuOpen = !this.mobileMenuOpen },
   },

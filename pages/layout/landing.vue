@@ -2,9 +2,13 @@
 .layout-landing.hero.is-fullheight(flex="column align-stretch")
   header.navbar.card
     .container
-      router-link.navbar-item(to="/")
-        i.icon-home Home
-      .navbar-menu
+      .navbar-brand
+        router-link.navbar-item(to="/")
+          i.icon-home Home
+        .navbar-burger.burger(@click="toggleMenu()")
+          span(v-for="i in 3")
+
+      .navbar-menu(:class="{'is-active': showMobileMenu}")
         slot(name="top-menu")
 
   section.content-main(flex-item="grow-1")
@@ -23,11 +27,31 @@
 export default {
   data() {
     return {
+      showMobileMenu: false,
     }
   },
-  methods: { },
+  name: 'landing-layout',
+  methods: {
+    toggleMenu() {
+      this.showMobileMenu = !this.showMobileMenu
+    },
+  },
   computed: { },
   components: { },
 }
 </script>
 
+<style lang="scss" scoped>
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.content-main {
+  padding-top: $navbar-height;
+}
+</style>
