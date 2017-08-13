@@ -2,7 +2,8 @@
 .layout-landing.hero.is-fullheight(flex="column align-stretch")
   header.navbar.card
     .container
-      router-link.navbar-item(to="/") Home
+      router-link.navbar-item(to="/")
+        i.icon-home
       .navbar-menu
         slot(name="top-menu")
 
