@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "./node_modules/.bin/webpack --progress && ./node_modules/.bin/webpack-dev-server --watch",
-    "build": "NODE_ENV='production' ./node_modules/.bin/webpack",
+    "build": "NODE_ENV='production' ./node_modules/.bin/webpack; npm run build-storybook",
     "icon": "./node_modules/.bin/fontello open --config style/icon/config.json --session style/icon/.fontello-session",
     "icon:install": "./node_modules/.bin/fontello install --config style/icon/config.json --css style/icon/css --font style/icon/font --session style/icon/.fontello-session",
     "storybook": "start-storybook -p 6006",
