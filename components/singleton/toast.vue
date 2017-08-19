@@ -106,6 +106,9 @@ button {
           <li>Pop a message by dispatching <code>toast/add</code></li>
           <li>Payload can be string(text) or object(text, action)</li>
           <li>if <code>action</code> is provided in payload, you can use <code>.then()</code> to fire follow up question</li>
+          <li>Following material design, only single toast can exist</li>
+          <li>If more <code>toast/add</code> is dispatched before former one is destroyed, it will queue up</li>
+          <li>The toast will be remove after 5s or the action button is clicked</li>
         </ul>
 
         <hr>
@@ -143,7 +146,7 @@ button {
           action: 'OK'
         }).then(response => {
           let to = Date.now()
-          this.action('Call back fired', `after ${to - from} ms`)
+          this.action(`after ${to - from} ms`)
         })
       }
     },
