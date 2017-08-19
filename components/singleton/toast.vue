@@ -4,7 +4,7 @@
     .card(v-if="toast", flex="row align-center", :key="toast.id")
       .is-text-left {{toast.text}}
       .is-text-right(v-if="toast.action")
-        button.button.is-dark.has-text-primary.is-uppercase(@click="action(toast)") {{toast.action.text}}
+        button.button.is-dark.has-text-primary.is-uppercase(@click="action(toast)") {{toast.action}}
 </template>
 
 <script>
@@ -17,33 +17,32 @@ export default {
     }
   },
   computed: {
-    msgs() { return this.$store.state.toasts },
-    firstMsg() { return this.msgs.length? this.msgs[0]: null },
+    currentMsg() { return this.$store.getters['toasts/currentMsg'] },
   },
   methods: {
-    remove(id) {
+    remove() {
       this.toast = null
       clearTimeout(this.timeoutId)
       setTimeout(() => {
-        this.$store.commit('REMOVE_TOAST', id)
+        this.$store.commit('toasts/REMOVE')
       }, 200)
     },
 
     action(toast) {
-      if (!this.toast ) return
-      this.remove(toast.id)
-      if (toast.action.callback) toast.action.callback()
+      if (!this.toast) return
+      this.$store.commit('toasts/RESOLVE', toast)
+      this.remove()
     }
   },
   watch: {
-    firstMsg(val, oldVal) {
+    currentMsg(val, oldVal) {
       this.toast = val
     },
 
     toast(val) {
       if (!val) return
       this.timeoutId = setTimeout(() => {
-        this.remove(val.id)
+        this.remove()
       }, 5000)
     },
 
@@ -73,7 +72,6 @@ export default {
   right: 20px;
   max-width: calc(100% - 40px);
   z-index: 30;
-
 }
 .card {
   padding: 10px 15px;
@@ -88,25 +86,45 @@ export default {
 button {
   text-decoration: none;
 }
+
+@media(max-width: $tablet) {
+  .toast-container {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: none;
+  }
+}
 </style>
 
 
 <story>
   {
-    template: `<div class="section">
-      <ul>
-        <li>Still WIP</li>
-      </ul>
-      <form @submit.prevent="message()">
-        <div class="field has-addons">
-          <div class="control">
-            <input type="text" class="input" v-model="msg">
+    template: `<div >
+      <div class="section">
+        <ul>
+          <li>Pop a message by dispatching <code>toast/add</code></li>
+          <li>Payload can be string(text) or object(text, action)</li>
+          <li>if <code>action</code> is provided in payload, you can use <code>.then()</code> to fire follow up question</li>
+        </ul>
+
+        <hr>
+
+        <form @submit.prevent="notify()">
+          <div class="field has-addons">
+            <div class="control">
+              <input type="text" class="input" v-model="msg">
+            </div>
+            <div class="control">
+              <button class="button" type="submit">Notify</button>
+            </div>
           </div>
-          <div class="control">
-            <button class="button" type="submit">Notify</button>
+
+          <div class="field">
+            <button class="button" type="button" @click="alert()">Notify and alert</button>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
       <toast></toast>
     </div>`,
     data() {
@@ -115,8 +133,18 @@ button {
       }
     },
     methods: {
-      message() {
-        this.$store.dispatch('toast', this.msg)
+      notify() {
+        this.$store.dispatch('toasts/add', this.msg)
+      },
+      alert() {
+        let from = Date.now()
+        this.$store.dispatch('toasts/add', {
+          text: 'It will add a logger when click OK',
+          action: 'OK'
+        }).then(response => {
+          let to = Date.now()
+          this.action('Call back fired', `after ${to - from} ms`)
+        })
       }
     },
   }
