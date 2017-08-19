@@ -9,4 +9,6 @@ Vue.use(Meta)
 
 if ('serviceWorker' in navigator) {
   const registration = runtime.register();
+} else {
+  console.log('Service worker not supported');
 }

@@ -33,6 +33,7 @@ self.addEventListener('install', event => {
         if (DEBUG) {
           console.log('Cached assets: main', assetsToCache)
         }
+        self.skipWaiting()
       })
       .catch(error => {
         console.error(error)
@@ -79,6 +80,7 @@ self.addEventListener('message', event => {
 
 self.addEventListener('fetch', event => {
   const request = event.request
+  console.log(request);
 
   // Ignore not GET request.
   if (request.method !== 'GET') {
