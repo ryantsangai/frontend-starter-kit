@@ -18,7 +18,7 @@ import directives from './../config/directives'
 import each from 'lodash/each'
 
 // components
-const files = require.context('./', true, /\.vue$/)
+const files = require.context('./../components', true, /\.vue$/)
 const filePaths = files.keys()
 const skipped = ['App'] // format 'util/modal'
 
@@ -42,6 +42,8 @@ each(
   directives,
   (directiveFn, directiveName) => Vue.directive(directiveName, directiveFn)
 )
+
+store.dispatch('browser/bindResize')
 
 function makeStory(components, parentStory = null) {
   _.each(components, function(component, name) {
