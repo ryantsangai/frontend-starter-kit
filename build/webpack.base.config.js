@@ -3,17 +3,18 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 module.exports = {
   context: __dirname,
-  entry: './index.js',
+
   output: {
-    path: __dirname + '/dist',
-    filename: 'js/index.js',
+    path: __dirname + '/../dist',
+    filename: 'js/[name].js',
     pathinfo: process.env.NODE_ENV !== 'production',
     publicPath: '/',
   },
+
   module: {
     rules: [
       {
@@ -69,21 +70,13 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      }
-    }),
     new ExtractTextPlugin("css/main.css"),
     new webpack.ProvidePlugin({
       // '_': "lodash/core",
     }),
     new HtmlWebpackPlugin({
-      template: './index.pug',
+      template: '../index.pug',
       filename: './index.html',
-    }),
-    new ServiceWorkerWebpackPlugin({
-      entry: path.join(__dirname, 'config/sw.js'),
     }),
   ],
 
@@ -93,8 +86,6 @@ module.exports = {
       '@config': path.resolve('config'),
     }
   },
-
-  devtool: process.env.NODE_ENV !== 'production'? 'cheap-module-eval-source-map': '#source-map',
 
   devServer: {
     contentBase: __dirname + "/dist",
@@ -126,5 +117,9 @@ if (process.env.NODE_ENV === 'production') {
       inject: true,
       background: '#fff',
     }),
+  ])
+} else {
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new FriendlyErrorsPlugin(),
   ])
 }

@@ -4,6 +4,10 @@ import store from './../store'
 
 Vue.use(Router)
 
+function view(name) {
+  return resolve => require([`./../pages/${name}.vue`], resolve)
+}
+
 let routes = [
   {
     path: '/',
@@ -19,18 +23,10 @@ let routes = [
   }
 ]
 
-let router = new Router({
-  routes: routes,
-  scrollBehavior(to, from, savedPosition) { return { x: 0, y: 0 } },
-  mode: 'history',
-})
-
-router.beforeEach((to, from, next) => {
-  next()
-})
-
-function view(name) {
-    return resolve => require([`./../pages/${name}.vue`], resolve)
+export function createRouter () {
+  return new Router({
+    routes: routes,
+    scrollBehavior(to, from, savedPosition) { return { y: 0 } },
+    mode: 'history',
+  })
 }
-
-export default router

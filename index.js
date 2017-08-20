@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import store from './store'
-import router from './config/router'
+import {createStore} from './store'
+import {createRouter} from './config/router'
 import './config/component'
 import './config/http'
 import './config/plugin'
@@ -23,9 +23,23 @@ each(
 )
 
 
-let app = new Vue({
-  el: '#app',
-  router: router,
-  store: store,
-  render(h) { return h(App) },
-})
+export function createApp () {
+  // create store and router instances
+  const store = createStore()
+  const router = createRouter()
+  store.dispatch('browser/bindResize')
+
+  // create the app instance.
+  // here we inject the router, store and ssr context to all child components,
+  // making them available everywhere as `this.$router` and `this.$store`.
+  const app = new Vue({
+    router,
+    store,
+    render: h => h(App)
+  })
+
+  // expose the app, the router and the store.
+  // note we are not mounting the app here, since bootstrapping will be
+  // different depending on whether we are in a browser or on the server.
+  return { app, router, store }
+}
