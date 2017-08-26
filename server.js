@@ -2,6 +2,7 @@ const { createBundleRenderer } = require('vue-server-renderer')
 const path = require('path')
 const resolve = file => path.resolve(__dirname, file)
 const express = require('express')
+const config = require('./config.json')
 let readyPromise
 
 const app = express()
@@ -44,7 +45,7 @@ function render (req, res) {
     }
   }
   const context = {
-    title: 'Title', // default title
+    title: config.siteTitle,
     url: req.url
   }
   renderer.renderToString(context, (err, html) => {
