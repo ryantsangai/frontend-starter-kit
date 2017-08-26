@@ -1,22 +1,15 @@
 const { createBundleRenderer } = require('vue-server-renderer')
-const bundle = require('./../dist/vue-ssr-server-bundle.json')
-const clientManifest = require('./../dist/vue-ssr-client-manifest.json')
-const _  = require('lodash')
-const fs = require('fs')
 const path = require('path')
 const resolve = file => path.resolve(__dirname, file)
 const express = require('express')
-const pug = require('pug');
+let readyPromise
 
-// const pugTemplate = fs.readFileSync(resolve('./../index.pug'), 'utf-8')
-// const template = pug.compile(pugTemplate);
-const template = pug.renderFile('./index.pug');
-console.log(template);
+const app = express()
 
 function createRenderer (bundle, options) {
   // https://github.com/vuejs/vue/blob/dev/packages/vue-server-renderer/README.md#why-use-bundlerenderer
   return createBundleRenderer(bundle, Object.assign(options, {
-    template,
+    template: require('pug').renderFile('./index.pug'),
     // for component caching
     // this is only needed when vue-server-renderer is npm-linked
     basedir: resolve('./dist'),
@@ -25,9 +18,16 @@ function createRenderer (bundle, options) {
   }))
 }
 
-const renderer = createRenderer(bundle, {
-  clientManifest
-})
+if (process.env.NODE_ENV === 'production') {
+  const bundle = require('./dist/vue-ssr-server-bundle.json')
+  const renderer = createRenderer(bundle, {
+    clientManifest: require('./dist/vue-ssr-client-manifest.json'),
+  })
+} else {
+  readyPromise = require('./build/dev-server')(app, (bundle, options) => {
+    renderer = createRenderer(bundle, options)
+  })
+}
 
 function render (req, res) {
 
@@ -47,11 +47,7 @@ function render (req, res) {
     title: 'Title', // default title
     url: req.url
   }
-  renderer.renderToString({
-    title: 'TEST',
-    url: '/',
-    isServer: true,
-  }, (err, html) => {
+  renderer.renderToString(context, (err, html) => {
     if (err) {
       return handleError(err)
     }
@@ -61,11 +57,12 @@ function render (req, res) {
 }
 
 
-const app = express()
-
-app.get('*', render )
+app.get('*', process.env.NODE_ENV === 'production'? render: (req, res) => {
+  readyPromise.then(() => render(req, res))
+})
 
 const port = process.env.PORT || 8080
+
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`)
 })

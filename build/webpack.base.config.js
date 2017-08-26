@@ -74,10 +74,10 @@ module.exports = {
     new webpack.ProvidePlugin({
       // '_': "lodash/core",
     }),
-    new HtmlWebpackPlugin({
-      template: '../index.pug',
-      filename: './index.html',
-    }),
+    // new HtmlWebpackPlugin({
+    //   template: '../index.pug',
+    //   filename: './index.html',
+    // }),
   ],
 
   resolve: {

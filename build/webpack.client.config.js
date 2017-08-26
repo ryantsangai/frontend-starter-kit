@@ -6,7 +6,7 @@ const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
 
 const config = merge(base, {
-  entry: './client.js',
+  entry: './entry-client.js',
 
   plugins: [
     // strip dev-only code in Vue source

@@ -31,6 +31,7 @@
     "fontello": "^0.5.0",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
+    "memory-fs": "^0.4.1",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
     "pug": "^2.0.0-rc.3",
