@@ -1,4 +1,3 @@
-var CONFIG = require('./../webpack.config.js')
 const path = require('path')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const _ = require('lodash')

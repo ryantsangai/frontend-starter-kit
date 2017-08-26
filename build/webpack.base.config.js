@@ -111,7 +111,7 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     }),
     new FaviconsWebpackPlugin({
-      logo: __dirname + '/assets/favicon.png',
+      logo: __dirname + '/../assets/favicon.png',
       prefix: 'favicon/',
       inject: true,
       background: '#fff',
