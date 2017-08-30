@@ -4,6 +4,7 @@ const resolve = file => path.resolve(__dirname, file)
 const express = require('express')
 const config = require('./config.json')
 let readyPromise
+let renderer
 
 const app = express()
 
@@ -21,7 +22,7 @@ function createRenderer (bundle, options) {
 
 if (process.env.NODE_ENV === 'production') {
   const bundle = require('./dist/vue-ssr-server-bundle.json')
-  const renderer = createRenderer(bundle, {
+  renderer = createRenderer(bundle, {
     clientManifest: require('./dist/vue-ssr-client-manifest.json'),
   })
 } else {
@@ -68,3 +69,4 @@ app.listen(port, () => {
   console.log(`server started at localhost:${port}`)
 })
 
+module.exports = renderer

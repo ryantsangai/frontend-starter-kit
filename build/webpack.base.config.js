@@ -9,7 +9,7 @@ module.exports = {
 
   output: {
     path: __dirname + '/../dist',
-    filename: 'js/[name].js',
+    filename: '[name].[chunkhash].js',
     pathinfo: process.env.NODE_ENV !== 'production',
     publicPath: '/',
   },
@@ -55,21 +55,21 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'images/[name].[ext]',
+          name: '[name].[ext]?[hash]',
         }
       }, {
         test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'fonts/[name].[ext]',
+          name: '[name].[ext]?[hash]',
         }
       }
     ]
   },
 
   plugins: [
-    new ExtractTextPlugin("css/main.css"),
+    new ExtractTextPlugin("main.[chunkhash].css"),
     new webpack.ProvidePlugin({
       // '_': "lodash/core",
     }),
