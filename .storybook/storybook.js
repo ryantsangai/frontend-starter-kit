@@ -10,8 +10,6 @@ import store from './../store'
 import './../style/index.scss';
 import _ from 'lodash'
 
-require('./../config/http')
-
 import filters from './../config/filters'
 import directives from './../config/directives'
 

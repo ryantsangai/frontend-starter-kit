@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import {createStore} from './store'
-import {createRouter} from './config/router'
+import {createRouter} from './router'
 import './config/component'
 import './config/plugin'
 import filters from './config/filters'

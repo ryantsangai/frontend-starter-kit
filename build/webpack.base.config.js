@@ -79,6 +79,7 @@ module.exports = {
     alias: {
       '@cpn': path.resolve('components'),
       '@config': path.resolve('config'),
+      '@store': path.resolve('store'),
     }
   },
 
