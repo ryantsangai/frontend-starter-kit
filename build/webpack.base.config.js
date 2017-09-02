@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const CONFIG = require('../config.json')
 
 module.exports = {
   context: __dirname,
@@ -44,9 +45,6 @@ module.exports = {
           ]
         })
       }, {
-        test: /\.(pug)$/,
-        loader: "pug-loader",
-      }, {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
@@ -80,6 +78,7 @@ module.exports = {
       '@cpn': path.resolve('components'),
       '@config': path.resolve('config'),
       '@store': path.resolve('store'),
+      '@static': path.resolve('static'),
     }
   },
 
@@ -99,10 +98,10 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     }),
     new FaviconsWebpackPlugin({
-      logo: __dirname + '/../assets/favicon.png',
+      logo: __dirname + '/../static/favicon.png',
       prefix: 'favicon/',
       inject: true,
-      background: '#fff',
+      background: CONFIG.themeColor,
     }),
   ])
 } else {
