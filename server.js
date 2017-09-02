@@ -2,7 +2,7 @@ const { createBundleRenderer } = require('vue-server-renderer')
 const path = require('path')
 const express = require('express')
 const config = require('./config.json')
-const Render = require('./render.js')
+const Render = require('./build/render.js')
 
 const bundle = require('./dist/vue-ssr-server-bundle.json')
 const app = express()
@@ -10,6 +10,12 @@ const render = new Render(bundle, {
   clientManifest: require('./dist/vue-ssr-client-manifest.json'),
 })
 
+const resolve = file => path.resolve(__dirname, file)
+const serve = (path, cache) => express.static(resolve(path), {
+  maxAge: 0
+})
+
+app.use('/', serve('./dist', true))
 
 app.get('*',  (req, res) => {
 

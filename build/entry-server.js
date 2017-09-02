@@ -46,7 +46,11 @@ export default context => {
         // the initial data fetching on the client.
         context.state = store.state
         resolve(app)
-      }).catch(reject)
+      }).catch(error => {
+        console.info('async data error');
+        console.error(error)
+        reject(error)
+      })
     }, reject)
   })
 }

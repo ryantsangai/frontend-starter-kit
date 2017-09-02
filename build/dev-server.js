@@ -30,7 +30,7 @@ const clientCompiler = webpack(clientConfig)
 const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
   publicPath: clientConfig.output.publicPath,
   hot: true,
-  // noInfo: true
+  noInfo: true
 })
 
 app.use(devMiddleware)
@@ -72,16 +72,6 @@ serverCompiler.watch({}, (err, stats) => {
   }
 })
 
-// const resolve = file => path.resolve(__dirname + '../', file)
-// const serve = (path, cache) => express.static(resolve(path), {
-//   maxAge: 0
-// })
-
-// app.use(favicon('./public/logo-48.png'))
-// app.use('/dist', serve('./dist', true))
-// app.use('/public', serve('./public', true))
-// app.use('/manifest.json', serve('./manifest.json', true))
-// app.use('/service-worker.js', serve('./dist/service-worker.js'))
 
 app.get('*', (req, res) => {
   return renderer.get(req.url)
