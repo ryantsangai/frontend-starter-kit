@@ -18,7 +18,7 @@ const config = merge(base, {
     }),
 
     new ServiceWorkerWebpackPlugin({
-      entry: path.join(__dirname, '../static/sw.js'),
+      entry: path.join(__dirname, '../config/sw.js'),
     }),
 
     // extract vendor chunks for better caching
