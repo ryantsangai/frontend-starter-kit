@@ -73,10 +73,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       // '_': "lodash/core",
     }),
-    // new HtmlWebpackPlugin({
-    //   template: '../index.pug',
-    //   filename: './index.html',
-    // }),
   ],
 
   resolve: {
@@ -86,15 +82,6 @@ module.exports = {
     }
   },
 
-  devServer: {
-    contentBase: __dirname + "/dist",
-    port: 9000,
-    historyApiFallback: {
-      rewrites: [
-        { from: /./, to: '/index.html' }
-      ],
-    }
-  },
 }
 
 // npm run build
