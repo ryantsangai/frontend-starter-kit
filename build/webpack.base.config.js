@@ -71,7 +71,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       // '_': "lodash/core",
     }),
-    new CopyWebpackPlugin([{ from: '../static/' }]),
+    new CopyWebpackPlugin([{ from: '../static/', to: 'static/' }], {
+      // copyUnmodified: true,
+    }),
   ],
 
   resolve: {

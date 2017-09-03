@@ -1,7 +1,6 @@
 const { createBundleRenderer } = require('vue-server-renderer')
 const path = require('path')
 const Promise = require('bluebird')
-const CONFIG = require('../config.json')
 
 
 
@@ -21,10 +20,9 @@ class Render {
     return new Promise((resolve, reject) => {
       this.renderer.renderToString({
         url: url,
-        themeColor: CONFIG.themeColor,
       }, function(error, html) {
-        console.log(error);
         if (error) {
+          console.error('Render Error', error);
           return reject(error)
         } else {
           resolve(html)

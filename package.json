@@ -8,7 +8,7 @@
     "url": "https://github.com/ryantsangai/vue-webpack.git"
   },
   "scripts": {
-    "dev": "node build/dev-server.js",
+    "dev": "rimraf dist && node build/dev-server.js",
     "storybook": "start-storybook -p 6006",
     "icon": "./node_modules/.bin/fontello open --config style/icon/config.json --session style/icon/.fontello-session",
     "icon:install": "./node_modules/.bin/fontello install --config style/icon/config.json --css style/icon/css --font style/icon/font --session style/icon/.fontello-session",

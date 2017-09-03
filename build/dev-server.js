@@ -36,7 +36,7 @@ const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
 app.use(devMiddleware)
 // hot middleware
 app.use(require('webpack-hot-middleware')(clientCompiler, {
-  heartbeat: 1000,
+  heartbeat: 5000,
 }))
 
 clientCompiler.plugin('done', stats => {
@@ -72,14 +72,18 @@ serverCompiler.watch({}, (err, stats) => {
   }
 })
 
+app.use('/static', express.static(path.resolve(__dirname), {
+  maxAge: 0,
+}))
 
 app.get('*', (req, res) => {
+  console.log('url need render', req.url);
   return renderer.get(req.url)
     .then(html => {
       // console.log(html);
       res.send(html)
     })
-    .catch(error => console.error(error))
+    // .catch(error => console.error(error))
 })
 
 

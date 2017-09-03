@@ -1,6 +1,5 @@
 {
     "siteTitle": "Frontend Starter Kit",
-    "themeColor": "#fff",
     "path": {
         "components": "components/",
         "page": "components/pages"
