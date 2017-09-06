@@ -18,7 +18,6 @@ export function createStore () {
     },
     modules: {
       browser: require('./browser.js'),
-      toasts: require('./toasts.js'),
     },
   })
 }
