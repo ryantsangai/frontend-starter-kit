@@ -14,9 +14,9 @@
     "icon:install": "./node_modules/.bin/fontello install --config style/icon/config.json --css style/icon/css --font style/icon/font --session style/icon/.fontello-session",
     "build:client": "NODE_ENV='production' ./node_modules/.bin/webpack --config ./build/webpack.client.config.js --progress --hide-modules",
     "build:server": "NODE_ENV='production' ./node_modules/.bin/webpack --config ./build/webpack.server.config.js --progress --hide-modules",
-    "build:page": "NODE_ENV='production' node build/render-static.js",
+    "build:prerender": "NODE_ENV='production' node build/prerender.js",
     "build:storybook": "build-storybook --output-dir ./dist/storybook",
-    "build": "rimraf dist && npm run build:client && npm run build:server && npm run build:page && npm run build:storybook"
+    "build": "rimraf dist && npm run build:client && npm run build:server && npm run build:prerender && npm run build:storybook"
   },
   "devDependencies": {
     "@storybook/vue": "^3.2.3",
