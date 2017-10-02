@@ -2,6 +2,7 @@
     "siteTitle": "Frontend Starter Kit",
     "path": {
         "components": "components/",
-        "page": "components/pages"
+        "page": "components/pages",
+        "output": "functions/public"
     }
 }

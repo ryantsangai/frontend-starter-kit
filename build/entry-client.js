@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { createApp } from '../index'
+import { createApp } from '../app'
 import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 
 const { app, router, store } = createApp()

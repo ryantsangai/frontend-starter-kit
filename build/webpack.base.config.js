@@ -9,7 +9,7 @@ module.exports = {
   context: __dirname,
 
   output: {
-    path: __dirname + '/../dist',
+    path: __dirname + '/../public',
     filename: '[name].[chunkhash].js',
     pathinfo: process.env.NODE_ENV !== 'production',
     publicPath: '/',
@@ -71,7 +71,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       // '_': "lodash/core",
     }),
-    new CopyWebpackPlugin([{ from: '../static/', to: 'static/' }], {
+    new CopyWebpackPlugin([
+      { from: '../static/', to: 'static/' },
+    ], {
       // copyUnmodified: true,
     }),
   ],

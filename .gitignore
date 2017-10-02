@@ -1,4 +1,4 @@
 node_modules
-/dist
+/public
 npm-debug.log
 firebase-debug.log

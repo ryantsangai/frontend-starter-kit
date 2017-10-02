@@ -1,44 +1,29 @@
-import Vue from 'vue'
-import {createStore} from './store'
-import {createRouter} from './router'
-import './config/component'
-import './config/plugin'
-import filters from './config/filters'
-import directives from './config/directives'
-import App from './components/App.vue'
+const functions = require('firebase-functions')
 
-import './style/index.scss'
+const { render } = require('./public/server.js')
+const express = require('express')
 
-import each from 'lodash/each'
+const app = express()
 
-each(
-  filters,
-  (filterFn, filterName) => Vue.filter(filterName, filterFn)
-)
+app.get('*',  (req, res) => {
 
-each(
-  directives,
-  (directiveFn, directiveName) => Vue.directive(directiveName, directiveFn)
-)
+  render.get(req.url)
+    .then(html => {
+      res.end(html)
+    })
+    .catch(err => {
+      if (err.url) {
+        res.redirect(err.url)
+      } else if(err.code === 404) {
+        res.status(404).end('404 | Page Not Found')
+      } else {
+        // Render Error Page or Redirect
+        res.status(500).end('500 | Internal Server Error')
+        console.error(`error during render : ${req.url}`)
+        console.error(err.stack)
+      }
 
+    })
+})
 
-export function createApp () {
-  // create store and router instances
-  const store = createStore()
-  const router = createRouter()
-  store.dispatch('browser/bindResize')
-
-  // create the app instance.
-  // here we inject the router, store and ssr context to all child components,
-  // making them available everywhere as `this.$router` and `this.$store`.
-  const app = new Vue({
-    router,
-    store,
-    render: h => h(App)
-  })
-
-  // expose the app, the router and the store.
-  // note we are not mounting the app here, since bootstrapping will be
-  // different depending on whether we are in a browser or on the server.
-  return { app, router, store }
-}
+exports.ssr = functions.https.onRequest(app)
