@@ -3,6 +3,6 @@
     "path": {
         "components": "components/",
         "page": "components/pages",
-        "output": "functions/public"
+        "output": "public"
     }
 }
