@@ -40,4 +40,5 @@ jobs:
 
   deploy:
     <<: *defaults
-    steps: firebase deploy --token=$FIREBASE_TOKEN --non-interactive
+    steps:
+      - firebase: firebase deploy --token=$FIREBASE_TOKEN --non-interactive
