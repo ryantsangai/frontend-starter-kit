@@ -28,6 +28,12 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - node_modules
+
       - run: ./node_modules/.bin/rimraf public
 
   build:client:
