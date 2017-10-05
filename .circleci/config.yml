@@ -10,7 +10,7 @@ defaults: &defaults
     - image: circleci/node:6-browsers
 
 jobs:
-  install:
+  build:
     <<: *defaults
     steps:
       - checkout
