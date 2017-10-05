@@ -72,7 +72,7 @@ module.exports = {
       // '_': "lodash/core",
     }),
     new CopyWebpackPlugin([
-      { from: '../static/', to: 'static/' },
+      { from: '../static/' },
     ], {
       // copyUnmodified: true,
     }),
