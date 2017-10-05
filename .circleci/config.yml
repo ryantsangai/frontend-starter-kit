@@ -4,14 +4,12 @@
 #
 version: 2
 
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/node:6-browsers
-
 jobs:
   build:
-    <<: *defaults
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:6-browsers
+
     steps:
       - checkout
 
@@ -36,7 +34,9 @@ jobs:
       - run: npm run build:storybook
 
   deploy:
-    <<: *defaults
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:6-browsers
     steps:
       - checkout
       - deploy: firebase deploy --token=$FIREBASE_TOKEN --non-interactive
