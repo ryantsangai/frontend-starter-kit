@@ -1,5 +1,3 @@
-const path = require('path')
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const _ = require('lodash')
 const baseConfig = require('../build/webpack.base.config')
 
@@ -61,4 +59,3 @@ module.exports = (storybookBaseConfig, configType) => {
   // Return the altered config
   return storybookBaseConfig;
 };
-
