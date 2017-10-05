@@ -29,25 +29,24 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: ./node_modules/.bin/rimraf public
-      - run: pwd
-      - persist_to_workspace:
-          root: ~
-          paths:
-            - project
 
   build:client:
     <<: *defaults
     steps:
+      - checkout
+      - run: pwd
       - run: npm run build:client
 
   build:server:
     <<: *defaults
     steps:
+      - checkout
       - run: npm run build:server
 
   build:ssr:
     <<: *defaults
     steps:
+      - checkout
       - run: npm run build:prerender
       - run: npm run build:functions
       - run: npm run build:storybook
@@ -55,6 +54,7 @@ jobs:
   deploy:
     <<: *defaults
     steps:
+      - checkout
       - deploy:
           name: firebase deploy
           command: |
