@@ -8,7 +8,7 @@ import { linkTo } from '@storybook/addon-links';
 import Vue from 'vue'
 import _ from 'lodash'
 import './../style/index.scss';
-import { createApp } from '../index'
+import { createApp } from '../app'
 
 const { app, router, store } = createApp()
 
@@ -68,4 +68,3 @@ function makeStory(components, parentStory = null) {
 }
 
 makeStory(components)
-
