@@ -45,6 +45,11 @@ jobs:
           at: ~/project/vue
       - run: pwd
       - run: npm run build:client
+      - persist_to_workspace:
+          root: ~/project/vue
+          paths:
+            - node_modules
+            - public
 
   build:server:
     <<: *defaults
@@ -53,6 +58,11 @@ jobs:
       - attach_workspace:
           at: ~/project/vue
       - run: npm run build:server
+      - persist_to_workspace:
+          root: ~/project/vue
+          paths:
+            - node_modules
+            - public
 
   build:ssr:
     <<: *defaults
@@ -63,6 +73,11 @@ jobs:
       - run: npm run build:prerender
       - run: npm run build:functions
       - run: npm run build:storybook
+      - persist_to_workspace:
+          root: ~/project/vue
+          paths:
+            - node_modules
+            - public
 
   deploy:
     <<: *defaults
