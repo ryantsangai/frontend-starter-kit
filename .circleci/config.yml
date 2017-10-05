@@ -40,3 +40,12 @@ jobs:
     steps:
       - checkout
       - deploy: firebase deploy --token=$FIREBASE_TOKEN --non-interactive
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
