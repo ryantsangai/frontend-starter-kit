@@ -14,8 +14,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/repo
 
       # Download and cache dependencies
       - restore_cache:
@@ -35,25 +33,16 @@ jobs:
   build:client:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/repo
       - run: npm run build:client
 
   build:server:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/repo
       - run: npm run build:server
 
   build:ssr:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/repo
       - run: npm run build:prerender
       - run: npm run build:functions
       - run: npm run build:storybook
@@ -61,9 +50,6 @@ jobs:
   deploy:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/repo
       - deploy:
           name: firebase deploy
           command: |
