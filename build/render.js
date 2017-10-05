@@ -1,8 +1,5 @@
 const { createBundleRenderer } = require('vue-server-renderer')
-const path = require('path')
 const Promise = require('bluebird')
-
-
 
 class Render {
   constructor(bundle, options) {

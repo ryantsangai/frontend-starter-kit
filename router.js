@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
-import CONFIG from './config.json'
 
 Vue.use(Router)
 
 function view(name) {
-  return resolve => require([`./${CONFIG.path.page}/${name}.vue`], resolve)
+  return resolve => require([(`./components/pages/${name}.vue`)], resolve)
 }
 
 let routes = [
