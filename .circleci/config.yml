@@ -30,7 +30,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: ./node_modules/.bin/rimraf public
       - persist_to_workspace:
-        root: ~/repo
+          root: ~/repo
 
   build:client:
     <<: *defaults
