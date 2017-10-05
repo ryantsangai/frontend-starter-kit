@@ -15,20 +15,34 @@ jobs:
     steps:
       - checkout
 
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
       - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: ./node_modules/.bin/rimraf public
 
       - persist_to_workspace:
-          root: ~/project
+          root: ~/project/vue
           paths:
-            - vue
+            - node_modules
 
 
   build:client:
     <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/project/vue
       - run: pwd
       - run: npm run build:client
 
@@ -36,12 +50,16 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/project/vue
       - run: npm run build:server
 
   build:ssr:
     <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/project/vue
       - run: npm run build:prerender
       - run: npm run build:functions
       - run: npm run build:storybook
@@ -50,6 +68,8 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/project/vue
       - deploy:
           name: firebase deploy
           command: |
