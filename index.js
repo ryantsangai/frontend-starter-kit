@@ -1,9 +1,17 @@
 const functions = require('firebase-functions')
 
-const { render } = require('./public/server.js')
-const express = require('express')
+const Render = require('./build/render')
+const serverBundle = require('./public/vue-ssr-server-bundle.json')
+const clientManifest = require('./public/vue-ssr-client-manifest.json')
+if (!serverBundle) {
+  console.warn('ServerBundle not found');
+}
+if (!clientManifest) {
+  console.warn('clientManifest not found');
+}
 
-const app = express()
+const render = new Render(serverBundle, { clientManifest, })
+const app = require('express')()
 
 app.get('*',  (req, res) => {
 
