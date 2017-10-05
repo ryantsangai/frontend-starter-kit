@@ -4,14 +4,18 @@
 #
 version: 2
 
-jobs:
-  build:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:6-browsers
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:6-browsers
 
+jobs:
+  install:
+    <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/repo
 
       # Download and cache dependencies
       - restore_cache:
@@ -27,16 +31,35 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: ./node_modules/.bin/rimraf public
+
+  build:client:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
       - run: npm run build:client
+
+  build:server:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
       - run: npm run build:server
+
+  build:ssr:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
       - run: npm run build:prerender
       - run: npm run build:functions
       - run: npm run build:storybook
 
   deploy:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:6-browsers
+    <<: *defaults
     steps:
       - checkout
       - attach_workspace:
@@ -50,7 +73,17 @@ workflows:
   version: 2
   build_deploy:
     jobs:
-      - build
+      - install
+      - build:client:
+          requires:
+            - install
+      - build:server:
+          requires:
+            - install
+      - build:ssr:
+          requires:
+            - build:client
+            - build:server
       - deploy:
           requires:
-            - build
+            - build:ssr
