@@ -39,7 +39,9 @@ jobs:
       - image: circleci/node:6-browsers
     steps:
       - checkout
-      - deploy: firebase deploy --token=$FIREBASE_TOKEN --non-interactive
+      - deploy:
+        name: firebase deploy
+        command: firebase deploy --token=$FIREBASE_TOKEN --non-interactive
 
 workflows:
   version: 2
