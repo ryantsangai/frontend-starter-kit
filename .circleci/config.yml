@@ -5,7 +5,7 @@
 version: 2
 
 defaults: &defaults
-  working_directory: ~/project
+  working_directory: ~/project/vue
   docker:
     - image: circleci/node:6-browsers
 
@@ -29,12 +29,13 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - run: ./node_modules/.bin/rimraf public
+
       - persist_to_workspace:
           root: ~/project
           paths:
-            - node_modules
+            - vue
 
-      - run: ./node_modules/.bin/rimraf public
 
   build:client:
     <<: *defaults
