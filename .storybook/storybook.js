@@ -6,11 +6,11 @@ import { linkTo } from '@storybook/addon-links';
 
 // import App from './App.vue'
 import Vue from 'vue'
-import store from './../store'
-import './../style/index.scss';
 import _ from 'lodash'
+import './../style/index.scss';
+import { createApp } from '../index'
 
-require('./../config/http')
+const { app, router, store } = createApp()
 
 import filters from './../config/filters'
 import directives from './../config/directives'

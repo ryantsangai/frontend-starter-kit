@@ -1,0 +1,8 @@
+{
+    "siteTitle": "Frontend Starter Kit",
+    "path": {
+        "components": "components/",
+        "page": "components/pages",
+        "output": "public"
+    }
+}

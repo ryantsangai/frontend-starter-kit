@@ -1,19 +1,20 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const CONFIG = require('../config.json')
 
 module.exports = {
   context: __dirname,
-  entry: './index.js',
+
   output: {
-    path: __dirname + '/dist',
-    filename: 'js/index.js',
+    path: __dirname + '/../public',
+    filename: '[name].[chunkhash].js',
     pathinfo: process.env.NODE_ENV !== 'production',
     publicPath: '/',
   },
+
   module: {
     rules: [
       {
@@ -44,9 +45,6 @@ module.exports = {
           ]
         })
       }, {
-        test: /\.(pug)$/,
-        loader: "pug-loader",
-      }, {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
@@ -55,35 +53,28 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'images/[name].[ext]',
+          name: '[name].[ext]?[hash]',
         }
       }, {
         test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'fonts/[name].[ext]',
+          name: '[name].[ext]?[hash]',
         }
       }
     ]
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      }
-    }),
-    new ExtractTextPlugin("css/main.css"),
+    new ExtractTextPlugin("main.[chunkhash].css"),
     new webpack.ProvidePlugin({
       // '_': "lodash/core",
     }),
-    new HtmlWebpackPlugin({
-      template: './index.pug',
-      filename: './index.html',
-    }),
-    new ServiceWorkerWebpackPlugin({
-      entry: path.join(__dirname, 'config/sw.js'),
+    new CopyWebpackPlugin([
+      { from: '../static/' },
+    ], {
+      // copyUnmodified: true,
     }),
   ],
 
@@ -91,20 +82,12 @@ module.exports = {
     alias: {
       '@cpn': path.resolve('components'),
       '@config': path.resolve('config'),
+      '@store': path.resolve('store'),
+      '@static': path.resolve('static'),
+      '@images': path.resolve('images'),
     }
   },
 
-  devtool: process.env.NODE_ENV !== 'production'? 'cheap-module-eval-source-map': '#source-map',
-
-  devServer: {
-    contentBase: __dirname + "/dist",
-    port: 9000,
-    historyApiFallback: {
-      rewrites: [
-        { from: /./, to: '/index.html' }
-      ],
-    }
-  },
 }
 
 // npm run build
@@ -120,11 +103,9 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
-    new FaviconsWebpackPlugin({
-      logo: __dirname + '/assets/favicon.png',
-      prefix: 'favicon/',
-      inject: true,
-      background: '#fff',
-    }),
+  ])
+} else {
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new FriendlyErrorsPlugin(),
   ])
 }

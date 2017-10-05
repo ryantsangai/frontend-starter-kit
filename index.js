@@ -1,31 +1,29 @@
-import Vue from 'vue'
-import store from './store'
-import router from './config/router'
-import './config/component'
-import './config/http'
-import './config/plugin'
-import filters from './config/filters'
-import directives from './config/directives'
-import App from './components/App.vue'
+const functions = require('firebase-functions')
 
-import './style/index.scss'
+const { render } = require('./public/server.js')
+const express = require('express')
 
-import each from 'lodash/each'
+const app = express()
 
-each(
-  filters,
-  (filterFn, filterName) => Vue.filter(filterName, filterFn)
-)
+app.get('*',  (req, res) => {
 
-each(
-  directives,
-  (directiveFn, directiveName) => Vue.directive(directiveName, directiveFn)
-)
+  render.get(req.url)
+    .then(html => {
+      res.end(html)
+    })
+    .catch(err => {
+      if (err.url) {
+        res.redirect(err.url)
+      } else if(err.code === 404) {
+        res.status(404).end('404 | Page Not Found')
+      } else {
+        // Render Error Page or Redirect
+        res.status(500).end('500 | Internal Server Error')
+        console.error(`error during render : ${req.url}`)
+        console.error(err.stack)
+      }
 
-
-let app = new Vue({
-  el: '#app',
-  router: router,
-  store: store,
-  render(h) { return h(App) },
+    })
 })
+
+exports.ssr = functions.https.onRequest(app)

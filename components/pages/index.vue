@@ -19,10 +19,8 @@ export default {
     }
   },
   methods: { },
-  computed: { },
   components: {
     LandingLayout,
   },
 }
 </script>
-

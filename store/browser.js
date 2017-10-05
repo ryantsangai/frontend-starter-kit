@@ -1,8 +1,8 @@
 import throttle from 'lodash/throttle'
 
 let state = {
-  width: window.innerWidth,
-  height: window.innerHeight,
+  width: process.env.VUE_ENV !== 'server'? window.innerWidth: 0,
+  height: process.env.VUE_ENV !== 'server'? window.innerHeight: 0,
 }
 
 
@@ -26,7 +26,9 @@ const actions = {
         height: window.innerHeight,
       })
     }
-    window.onresize = throttle(onWindowResize, 10)
+    if (process.env.VUE_ENV !== 'server') {
+      window.onresize = throttle(onWindowResize, 10)
+    }
   },
 }
 

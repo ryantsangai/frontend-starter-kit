@@ -1,5 +1,5 @@
 <template lang="pug">
-.app
+#app
   router-view
   toast
 </template>
@@ -19,7 +19,6 @@ export default {
   methods: { },
   computed: { },
   created() {
-    this.$store.dispatch('browser/bindResize')
   },
   components: {
     Toast,

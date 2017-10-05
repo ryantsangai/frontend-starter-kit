@@ -10,11 +10,14 @@ export default {
           if (e.key === key) return binding.value()
         })
       }
-
-      window.addEventListener('keydown', binding.listener)
+      if (process.env.VUE_ENV !== 'server') {
+        window.addEventListener('keydown', binding.listener)
+      }
     },
     unbind(el, binding) {
-      window.removeEventListener('keydown', binding.listener)
+      if (process.env.VUE_ENV !== 'server') {
+        window.removeEventListener('keydown', binding.listener)
+      }
     },
   }
 }

@@ -1,7 +1,7 @@
-var CONFIG = require('./../webpack.config.js')
 const path = require('path')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const _ = require('lodash')
+const baseConfig = require('../build/webpack.base.config')
 
 module.exports = (storybookBaseConfig, configType) => {
   storybookBaseConfig.module.rules = storybookBaseConfig.module.rules.concat([
@@ -55,6 +55,8 @@ module.exports = (storybookBaseConfig, configType) => {
       story: require.resolve('./story-loader.js'),
     }
   }
+
+  _.assignIn(storybookBaseConfig.resolve.alias, baseConfig.resolve.alias)
 
   // Return the altered config
   return storybookBaseConfig;

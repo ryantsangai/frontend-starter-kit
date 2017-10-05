@@ -6,8 +6,9 @@ import axios from 'axios'
 //   axios.defaults.baseURL = `//${window.location.hostname}`
 // }
 
+let app = axios.create()
 
-axios.interceptors.request.use(function (request) {
+app.interceptors.request.use(function (request) {
   // let token = store.get('cms.token')
   // if (token) config.headers['Authorization'] = `Bearer ${token}`
   return request;
@@ -16,8 +17,11 @@ axios.interceptors.request.use(function (request) {
 });
 
 // Add a response interceptor
-axios.interceptors.response.use(function (response) {
+app.interceptors.response.use(function (response) {
   return response.data;
 }, function(error) {
+  // add api error handling here, like 401 prompt login
   return Promise.reject(error.response.data);
 });
+
+export { app }
