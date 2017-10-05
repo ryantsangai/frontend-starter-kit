@@ -40,8 +40,9 @@ jobs:
     steps:
       - checkout
       - deploy:
-        name: firebase deploy
-        command: firebase deploy --token=$FIREBASE_TOKEN --non-interactive
+          name: firebase deploy
+          command: |
+            ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --non-interactive
 
 workflows:
   version: 2
