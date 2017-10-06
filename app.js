@@ -26,7 +26,7 @@ export function createApp () {
   // create store and router instances
   const store = createStore()
   const router = createRouter()
-  store.dispatch('browser/bindResize')
+  store.dispatch('serverBootstrap')
 
   // create the app instance.
   // here we inject the router, store and ssr context to all child components,
@@ -34,7 +34,11 @@ export function createApp () {
   const app = new Vue({
     router,
     store,
+    mounted() {
+      this.$store.dispatch('clientBootstrap')
+    },
     render: h => h(App)
+
   })
 
   // expose the app, the router and the store.
