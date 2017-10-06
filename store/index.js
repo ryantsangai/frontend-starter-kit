@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex'
+import Promise from 'bluebird'
 
 Vue.use(Vuex)
 
@@ -15,10 +16,21 @@ export function createStore () {
       LANG(state, payload) { state.lang = payload },
     },
     actions: {
+      serverBootstrap({ dispatch}) {
+        return Promise.all([
+        ])
+      },
+
+      // add all actions here when app
+      // will be called on `mounted` callback on client
+      clientBootstrap({ dispatch }) {
+        return Promise.all([
+          dispatch('browser/bindResize', null, { root: true }),
+        ])
+      },
     },
     modules: {
       browser: require('./browser.js'),
     },
   })
 }
-
